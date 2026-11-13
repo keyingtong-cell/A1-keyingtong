@@ -116,6 +116,34 @@ public abstract class HealthProfessional {
     }
 
     /**
+     * 判断两个专业人员是否为同一个人：只要 ID 相同，就视为同一名专业人员。
+     *
+     * @param other 要比较的另一个对象
+     * @return 两个对象的 ID 相同时返回 true，否则返回 false
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof HealthProfessional)) {
+            return false;
+        }
+        HealthProfessional that = (HealthProfessional) other;
+        return id.equals(that.id);
+    }
+
+    /**
+     * 基于 ID 生成哈希码，保证和 equals() 保持一致：ID 相同的对象哈希码也相同。
+     *
+     * @return 由 ID 计算出来的哈希码
+     */
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    /**
      * 返回该医疗专业人员对象的可读描述，其中类型名称由子类重写的 getRole() 提供。
      *
      * @return 包含类型、编号、姓名和工作日的描述字符串
