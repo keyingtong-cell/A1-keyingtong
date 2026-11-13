@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -34,6 +35,24 @@ public class AssignmentOne {
         System.out.println("=== Health Professionals ===");
         for (HealthProfessional p : professionals) {
             System.out.println(p);
+        }
+
+        System.out.println("\n=== Appointments (created order) ===");
+        Patient alice = new Patient("Alice Wang", "0412 345 678");
+        Patient bob = new Patient("Bob Li", "0498 765 432");
+        ArrayList<Appointment> appointments = new ArrayList<>();
+        appointments.add(new Appointment(alice, professionals.get(0), 570));
+        appointments.add(new Appointment(bob, professionals.get(2), 480));
+        appointments.add(new Appointment(alice, professionals.get(3), 900));
+        appointments.add(new Appointment(bob, professionals.get(0), 700));
+        for (Appointment a : appointments) {
+            System.out.println(a);
+        }
+
+        Collections.sort(appointments);
+        System.out.println("\n=== Appointments (sorted by time) ===");
+        for (Appointment a : appointments) {
+            System.out.println(a);
         }
     }
 }
