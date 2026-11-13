@@ -99,4 +99,42 @@ public class AppointmentManager {
             }
         }
     }
+
+    /**
+     * 按专业人员编号和预约时间取消预约，找到符合的预约就删除并返回成功消息。
+     *
+     * @param id 专业人员的编号
+     * @param timeMinutes 预约时间（分钟数）
+     * @return 取消成功时返回 "Appointment cancelled: ..."；找不到时返回 "Cannot cancel: ..." 的说明消息
+     */
+    public String cancelByProfessional(String id, int timeMinutes) {
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment a = appointments.get(i);
+            if (a.getProfessional().getId().equals(id)
+                    && a.getTimeMinutes() == timeMinutes) {
+                appointments.remove(i);
+                return "Appointment cancelled: " + a.getTimeString() + " with "
+                        + a.getProfessional().getName() + ".";
+            }
+        }
+        return "Cannot cancel: no appointment found for professional ID " + id + ".";
+    }
+
+    /**
+     * 按患者手机号取消预约，找到第一条符合条件的预约就删除并返回成功消息。
+     *
+     * @param mobile 患者的手机号
+     * @return 取消成功时返回 "Appointment cancelled: ..."；找不到时返回 "Cannot cancel: ..." 的说明消息
+     */
+    public String cancelByMobile(String mobile) {
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment a = appointments.get(i);
+            if (a.getPatient().getMobile().equals(mobile)) {
+                appointments.remove(i);
+                return "Appointment cancelled: " + a.getTimeString() + " for "
+                        + a.getPatient().getName() + ".";
+            }
+        }
+        return "Cannot cancel: no appointment found for patient mobile " + mobile + ".";
+    }
 }
