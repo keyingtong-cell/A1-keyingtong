@@ -1,9 +1,9 @@
-import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AssignmentOne {
     public static void main(String[] args) {
+        // ============ Part 3: 不同类型专业人员,统一存储统一处理 ============
         ArrayList<HealthProfessional> professionals = new ArrayList<>();
 
         // 三个全科医生
@@ -32,27 +32,64 @@ public class AssignmentOne {
         professionals.add(new Anesthesiologist("50001", "Dr David Wu",
                 new ArrayList<>(Arrays.asList("Wednesday", "Friday")), "General Anesthesia"));
 
-        System.out.println("=== Health Professionals ===");
+        System.out.println("========== Health Professionals ==========");
         for (HealthProfessional p : professionals) {
             System.out.println(p);
         }
 
-        System.out.println("\n=== Appointments (created order) ===");
+        // ============ 各类型专业人员的专属功能 ============
+        System.out.println("\n========== Professional Actions ==========");
+        ((GeneralPractitioner) professionals.get(0)).prescribeDrugs("Panadol");
+        ((Nurse) professionals.get(3)).takeBloodSample("Alice Wang");
+        ((Surgeon) professionals.get(5)).performSurgery("Heart bypass");
+        ((Pediatrician) professionals.get(6)).giveVaccination("MMR vaccine");
+        ((Anesthesiologist) professionals.get(7)).administerAnesthesia("Bob Li");
+
+        // ============ Part 6: 预约系统端到端演示 ============
+        System.out.println("\n========== Appointment System Demo ==========");
+        AppointmentManager manager = new AppointmentManager();
         Patient alice = new Patient("Alice Wang", "0412 345 678");
         Patient bob = new Patient("Bob Li", "0498 765 432");
-        ArrayList<Appointment> appointments = new ArrayList<>();
-        appointments.add(new Appointment(alice, professionals.get(0), 570));
-        appointments.add(new Appointment(bob, professionals.get(2), 480));
-        appointments.add(new Appointment(alice, professionals.get(3), 900));
-        appointments.add(new Appointment(bob, professionals.get(0), 700));
-        for (Appointment a : appointments) {
-            System.out.println(a);
-        }
+        Patient carol = new Patient("Carol Sun", "0455 555 555");
 
-        Collections.sort(appointments);
-        System.out.println("\n=== Appointments (sorted by time) ===");
-        for (Appointment a : appointments) {
-            System.out.println(a);
-        }
+        // 添加预约:覆盖不同专业人员类型
+        System.out.println("--- Adding appointments ---");
+        System.out.println(manager.addAppointment(
+                new Appointment(alice, professionals.get(0), 480)));
+        System.out.println(manager.addAppointment(
+                new Appointment(bob, professionals.get(3), 510)));
+        System.out.println(manager.addAppointment(
+                new Appointment(carol, professionals.get(5), 600)));
+        System.out.println(manager.addAppointment(
+                new Appointment(alice, professionals.get(6), 840)));
+        System.out.println(manager.addAppointment(
+                new Appointment(bob, professionals.get(7), 900)));
+
+        // 错误场景:同一医生同一时段重复预订
+        System.out.println(manager.addAppointment(
+                new Appointment(carol, professionals.get(0), 480)));
+
+        // 显示全部(按时间排序)
+        manager.displayAll();
+
+        // 筛选:按医生 ID(一个存在,一个不存在)
+        manager.displayFilteredByProfessional("10001");
+        manager.displayFilteredByProfessional("99999");
+
+        // 筛选:按患者手机号(一个存在,一个不存在)
+        manager.displayFilteredByMobile("0412 345 678");
+        manager.displayFilteredByMobile("0000 000 000");
+
+        // 取消:按(医生 ID + 时间),第二次取消失败
+        System.out.println("--- Cancelling ---");
+        System.out.println(manager.cancelByProfessional("10001", 480));
+        System.out.println(manager.cancelByProfessional("10001", 480));
+
+        // 取消:按手机号
+        System.out.println(manager.cancelByMobile("0498 765 432"));
+
+        // 再次显示全部,证明集合已更新
+        System.out.println("\n--- After cancelling ---");
+        manager.displayAll();
     }
 }
