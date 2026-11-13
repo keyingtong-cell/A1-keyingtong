@@ -45,6 +45,15 @@ public class AssignmentOne {
         ((Pediatrician) professionals.get(6)).giveVaccination("MMR vaccine");
         ((Anesthesiologist) professionals.get(7)).administerAnesthesia("Bob Li");
 
+        // 接口能力:面向 CanPrescribe 编程(Activity 3.8 模式)
+        System.out.println("\n========== Prescribing via CanPrescribe ==========");
+        ArrayList<CanPrescribe> prescribers = new ArrayList<>();
+        prescribers.add((GeneralPractitioner) professionals.get(0));
+        prescribers.add((Pediatrician) professionals.get(6));
+        for (CanPrescribe p : prescribers) {
+            p.prescribeDrugs("Vitamin C");
+        }
+
         // ============ Part 6: 预约系统端到端演示 ============
         System.out.println("\n========== Appointment System Demo ==========");
         AppointmentManager manager = new AppointmentManager();

@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+
 /**
  * 全科医生,继承医疗专业人员基类,额外记录行医执照号,并能开药。
  *
  * @author 童可盈
  * @version 13/11/2026
  */
-public class GeneralPractitioner extends HealthProfessional {
+public class GeneralPractitioner extends HealthProfessional implements CanPrescribe {
 
     private String licenceNumber;
 
@@ -42,6 +43,7 @@ public class GeneralPractitioner extends HealthProfessional {
      *
      * @param medicine 药品名称
      */
+    @Override
     public void prescribeDrugs(String medicine) {
         System.out.println("General Practitioner " + getName()
                 + " prescribes: " + medicine);

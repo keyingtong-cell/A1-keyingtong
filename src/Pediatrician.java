@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author 童可盈
  * @version 13/11/2026
  */
-public class Pediatrician extends HealthProfessional {
+public class Pediatrician extends HealthProfessional implements CanPrescribe {
 
     private String ageRange;
 
@@ -46,6 +46,17 @@ public class Pediatrician extends HealthProfessional {
     public void giveVaccination(String vaccineName) {
         System.out.println("Pediatrician " + getName()
                 + " gives vaccination: " + vaccineName);
+    }
+
+    /**
+     * 给儿童开药,打印一条开药记录。
+     *
+     * @param medicine 药品名称
+     */
+    @Override
+    public void prescribeDrugs(String medicine) {
+        System.out.println("Pediatrician " + getName()
+                + " prescribes: " + medicine);
     }
 
     /**
