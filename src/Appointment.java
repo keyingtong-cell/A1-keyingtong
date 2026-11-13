@@ -77,6 +77,15 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     /**
+     * 返回该预约时间的显示格式 "HH:MM"。
+     *
+     * @return 形如 "8:30" 的时间字符串
+     */
+    public String getTimeString() {
+        return formatTime(timeMinutes);
+    }
+
+    /**
      * 把分钟数格式化成 "HH:MM" 显示，例如 510 -> "8:30"，485 -> "8:05"。
      *
      * @param minutes 从午夜起的分钟数

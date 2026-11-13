@@ -57,4 +57,4 @@ public class Nurse extends HealthProfessional {
     public String toString() {
         return super.toString() + " | Department: " + department;
     }
-}
+} 

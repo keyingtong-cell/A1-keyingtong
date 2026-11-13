@@ -56,4 +56,5 @@ public class GeneralPractitioner extends HealthProfessional {
     public String toString() {
         return super.toString() + " | Licence: " + licenceNumber;
     }
+
 }
