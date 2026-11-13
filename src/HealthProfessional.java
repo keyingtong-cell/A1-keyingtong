@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * 表示一名医疗专业人员，保存其编号、姓名和每周工作日。
+ * 抽象基类，表示一名医疗专业人员，保存其编号、姓名和每周工作日，它本身不能被 new 出来，只能由具体子类继承。
  *
  * @author 童可盈
  * @version 13/11/2026
  */
-public class HealthProfessional {
+public abstract class HealthProfessional {
     private String id;
     private String name;
     private ArrayList<String> workingDays;
@@ -82,6 +82,13 @@ public class HealthProfessional {
     }
 
     /**
+     * 返回这个专业人员的类型名称，具体返回什么由每个子类自己实现。
+     *
+     * @return 该专业人员类型的名称，例如 "全科医生 (General Practitioner)"
+     */
+    public abstract String getRole();
+
+    /**
      * 返回医疗专业人员的编号。
      *
      * @return 该对象的编号字符串
@@ -109,14 +116,14 @@ public class HealthProfessional {
     }
 
     /**
-     * 返回该医疗专业人员对象的可读描述。
+     * 返回该医疗专业人员对象的可读描述，其中类型名称由子类重写的 getRole() 提供。
      *
-     * @return 包含编号、姓名和工作日的描述字符串
+     * @return 包含类型、编号、姓名和工作日的描述字符串
      */
     @Override
     public String toString() {
-        return "Health Professional [ID: " + id + ", Name: " + name
-                + ", Working days: " + workingDays + "]";
+        return "Health Professional [Role: " + getRole() + ", ID: " + id
+                + ", Name: " + name + ", Working days: " + workingDays + "]";
     }
 
 }
