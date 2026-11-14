@@ -1,15 +1,16 @@
 /**
- * 表示"能开药"的能力——能开药的医疗专业人员都实现这个接口。
+ * Represents the "can prescribe" capability: every health professional who is allowed to prescribe
+ * drugs implements this interface.
  *
- * @author 童可盈
+ * @author Tong Keying
  * @version 14/11/2026
  */
 public interface CanPrescribe {
 
     /**
-     * 给患者开药。
+     * Prescribes a medicine to a patient.
      *
-     * @param medicine 药品名称
+     * @param medicine the name of the medicine
      */
     void prescribeDrugs(String medicine);
 }

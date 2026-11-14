@@ -1,7 +1,7 @@
 /**
- * 表示一位患者，保存其姓名和手机号。
+ * Represents a patient, storing the patient's name and mobile number.
  *
- * @author 童可盈
+ * @author Tong Keying
  * @version 14/11/2026
  */
 public class Patient {
@@ -9,10 +9,11 @@ public class Patient {
     private String mobile;
 
     /**
-     * 创建患者对象，姓名和手机号为空时使用默认值 "Unknown"。
+     * Creates a patient object; the default value "Unknown" is used when the name or the mobile
+     * number is empty.
      *
-     * @param name 患者姓名，为空时默认 "Unknown"
-     * @param mobile 患者手机号，为空时默认 "Unknown"
+     * @param name the patient's name; defaults to "Unknown" when empty
+     * @param mobile the patient's mobile number; defaults to "Unknown" when empty
      */
     public Patient(String name, String mobile) {
         if (name == null || name.isEmpty()) {
@@ -28,27 +29,27 @@ public class Patient {
     }
 
     /**
-     * 返回患者的姓名。
+     * Returns the name of the patient.
      *
-     * @return 患者的姓名字符串
+     * @return the patient's name string
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 返回患者的手机号。
+     * Returns the mobile number of the patient.
      *
-     * @return 患者的手机号字符串
+     * @return the patient's mobile number string
      */
     public String getMobile() {
         return mobile;
     }
 
     /**
-     * 返回该患者对象的可读描述。
+     * Returns a readable description of this patient.
      *
-     * @return 包含姓名和手机号的描述字符串
+     * @return a description string containing the name and mobile number
      */
     @Override
     public String toString() {

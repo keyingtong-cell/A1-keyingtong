@@ -2,10 +2,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * 抽象基类，表示一名医疗专业人员，保存其编号、姓名和每周工作日，它本身不能被 new 出来，只能由具体子类继承。
+ * Abstract base class representing a health professional; it stores the professional's id, name
+ * and weekly working days. It cannot be instantiated with new and is meant to be extended by
+ * concrete subclasses.
  *
- * @author 童可盈
- * @version 13/11/2026
+ * @author Tong Keying
+ * @version 14/11/2026
  */
 public abstract class HealthProfessional {
     private String id;
@@ -18,10 +20,10 @@ public abstract class HealthProfessional {
             Arrays.asList("Monday", "Tuesday", "Wednesday", "Thursday", "Friday"));
 
     /**
-     * 判断给定字符串是否只由数字字符组成。
+     * Checks whether the given string consists of digits only.
      *
-     * @param text 需要检查的字符串
-     * @return 字符串非空且全部为数字时返回 true，否则返回 false
+     * @param text the string to check
+     * @return true when the string is not empty and consists only of digits, otherwise false
      */
     private boolean isAllDigits(String text) {
         if (text == null || text.isEmpty()) {
@@ -37,21 +39,24 @@ public abstract class HealthProfessional {
     }
 
     /**
-     * 判断给定字符串是否为空或 null。
+     * Checks whether the given string is empty or null.
      *
-     * @param text 需要检查的字符串
-     * @return 字符串为 null 或长度为 0 时返回 true，否则返回 false
+     * @param text the string to check
+     * @return true when the string is null or has length 0, otherwise false
      */
     private boolean isBlank(String text) {
         return text == null || text.isEmpty();
     }
 
     /**
-     * 创建医疗专业人员对象，并验证编号、姓名和工作日等输入是否合法。
+     * Creates a health professional object and validates the id, name and working days.
      *
-     * @param id 医疗专业人员的编号，必须全部由数字组成，否则使用默认编号 "0"
-     * @param name 医疗专业人员的姓名，不能为空，否则使用默认姓名 "Unknown"
-     * @param workingDays 每周工作日列表，为 null 或空时使用周一至周五的默认工作日
+     * @param id the professional's id, which must consist of digits only; otherwise the default id
+     *        "0" is used
+     * @param name the professional's name, which must not be empty; otherwise the default name
+     *        "Unknown" is used
+     * @param workingDays the weekly working days; the default Monday-to-Friday list is used when it
+     *        is null or empty
      */
     public HealthProfessional(String id, String name, ArrayList<String> workingDays) {
         if (isAllDigits(id)) {
@@ -72,54 +77,57 @@ public abstract class HealthProfessional {
     }
 
     /**
-     * 创建医疗专业人员对象，只传入编号和姓名，工作日使用默认值（周一至周五）。
+     * Creates a health professional object from the id and name only; the working days use the
+     * default value (Monday to Friday).
      *
-     * @param id 医疗专业人员的编号，必须全部由数字组成
-     * @param name 医疗专业人员的姓名，不能为空
+     * @param id the professional's id, which must consist of digits only
+     * @param name the professional's name, which must not be empty
      */
     public HealthProfessional(String id, String name) {
         this(id, name, DEFAULT_WORKING_DAYS);
     }
 
     /**
-     * 返回这个专业人员的类型名称，具体返回什么由每个子类自己实现。
+     * Returns the type name of this professional; each subclass provides its own implementation.
      *
-     * @return 该专业人员类型的名称，例如 "全科医生 (General Practitioner)"
+     * @return the name of this professional type, e.g. "General Practitioner"
      */
     public abstract String getRole();
 
     /**
-     * 返回医疗专业人员的编号。
+     * Returns the id of this health professional.
      *
-     * @return 该对象的编号字符串
+     * @return the id string of this object
      */
     public String getId() {
         return id;
     }
 
     /**
-     * 返回医疗专业人员的姓名。
+     * Returns the name of this health professional.
      *
-     * @return 该对象的姓名字符串
+     * @return the name string of this object
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 返回该医疗专业人员的每周工作日列表。
+     * Returns the weekly working days of this health professional.
      *
-     * @return 工作日列表的副本，修改返回值不会影响对象内部保存的工作日
+     * @return a copy of the working days list; changing the returned list does not affect the
+     *         working days stored in this object
      */
     public ArrayList<String> getWorkingDays() {
         return new ArrayList<>(workingDays);
     }
 
     /**
-     * 判断两个专业人员是否为同一个人：只要 ID 相同，就视为同一名专业人员。
+     * Checks whether two professionals are the same person: two professionals with the same id are
+     * considered the same professional.
      *
-     * @param other 要比较的另一个对象
-     * @return 两个对象的 ID 相同时返回 true，否则返回 false
+     * @param other the other object to compare with
+     * @return true when both objects have the same id, otherwise false
      */
     @Override
     public boolean equals(Object other) {
@@ -134,9 +142,10 @@ public abstract class HealthProfessional {
     }
 
     /**
-     * 基于 ID 生成哈希码，保证和 equals() 保持一致：ID 相同的对象哈希码也相同。
+     * Generates a hash code from the id, consistent with equals(): objects with the same id have the
+     * same hash code.
      *
-     * @return 由 ID 计算出来的哈希码
+     * @return the hash code computed from the id
      */
     @Override
     public int hashCode() {
@@ -144,9 +153,10 @@ public abstract class HealthProfessional {
     }
 
     /**
-     * 返回该医疗专业人员对象的可读描述，其中类型名称由子类重写的 getRole() 提供。
+     * Returns a readable description of this health professional; the type name comes from the
+     * getRole() implementation of the concrete subclass.
      *
-     * @return 包含类型、编号、姓名和工作日的描述字符串
+     * @return a description string containing the type, id, name and working days
      */
     @Override
     public String toString() {

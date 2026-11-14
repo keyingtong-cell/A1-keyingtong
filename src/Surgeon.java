@@ -1,22 +1,26 @@
 import java.util.ArrayList;
 
 /**
- * 外科医生,继承医疗专业人员基类,额外记录手术专长,并能做手术。
+ * A surgeon, extending the health professional base class. Besides the shared information it keeps
+ * a surgical specialty and can perform surgery.
  *
- * @author 童可盈
- * @version 13/11/2026
+ * @author Tong Keying
+ * @version 14/11/2026
  */
 public class Surgeon extends HealthProfessional {
 
     private String surgerySpecialty;
 
     /**
-     * 创建外科医生对象,编号、姓名和工作日传给父类,自己额外保存手术专长。
+     * Creates a surgeon object: the id, name and working days are passed to the parent class, and
+     * the surgical specialty is stored by this class.
      *
-     * @param id 编号,必须全部由数字组成
-     * @param name 姓名,不能为空
-     * @param workingDays 每周工作日列表,为 null 或空时使用默认工作日
-     * @param surgerySpecialty 手术专长,如 "心脏外科",为空时默认 "Unknown"
+     * @param id the professional's id, which must consist of digits only
+     * @param name the professional's name, which must not be empty
+     * @param workingDays the weekly working days; the default working days are used when it is
+     *        null or empty
+     * @param surgerySpecialty the surgical specialty, e.g. "Cardiac Surgery"; it is set to
+     *        "Unknown" when null or empty
      */
     public Surgeon(String id, String name,
             ArrayList<String> workingDays, String surgerySpecialty) {
@@ -29,9 +33,9 @@ public class Surgeon extends HealthProfessional {
     }
 
     /**
-     * 返回自己的类型名称。
+     * Returns the type name of this professional.
      *
-     * @return 字符串 "Surgeon"
+     * @return the string "Surgeon"
      */
     @Override
     public String getRole() {
@@ -39,9 +43,9 @@ public class Surgeon extends HealthProfessional {
     }
 
     /**
-     * 做手术,打印一条手术记录。
+     * Performs a surgery and prints a surgery record.
      *
-     * @param surgeryName 手术名称
+     * @param surgeryName the name of the surgery
      */
     public void performSurgery(String surgeryName) {
         System.out.println("Surgeon " + getName()
@@ -49,9 +53,10 @@ public class Surgeon extends HealthProfessional {
     }
 
     /**
-     * 返回外科医生的可读描述:先取父类的共享信息,再追加自己的手术专长。
+     * Returns a readable description of this surgeon: the shared information from the parent class
+     * followed by this doctor's surgical specialty.
      *
-     * @return 包含类型、编号、姓名、工作日和手术专长的描述字符串
+     * @return a description string containing the type, id, name, working days and surgical specialty
      */
     @Override
     public String toString() {

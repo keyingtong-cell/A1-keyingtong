@@ -1,19 +1,21 @@
 /**
- * 表示一次预约（Appointment），记录患者（Patient 对象）、被预约的医疗专业人员（HealthProfessional 对象）和预约时间（分钟数），并支持按预约时间排序。
- * 预约时间以"从午夜起的分钟数"存储，例如 510 表示 08:30。
+ * Represents an appointment, recording the patient (a Patient object), the booked health
+ * professional (a HealthProfessional object) and the appointment time (in minutes); appointments
+ * can be sorted by time. The appointment time is stored as "minutes since midnight", e.g. 510
+ * means 08:30.
  *
- * @author 童可盈
+ * @author Tong Keying
  * @version 14/11/2026
  */
 public class Appointment implements Comparable<Appointment> {
 
-    // 默认预约时间：从午夜起 480 分钟，即 08:00
+    // Default appointment time: 480 minutes since midnight, i.e. 08:00
     private static final int DEFAULT_TIME = 480;
-    // 诊所最早可订时段：从午夜起 480 分钟，即 08:00
+    // Earliest bookable slot in the clinic: 480 minutes since midnight, i.e. 08:00
     private static final int FIRST_SLOT = 480;
-    // 最晚可订时段：从午夜起 930 分钟，即 15:30
+    // Latest bookable slot: 930 minutes since midnight, i.e. 15:30
     private static final int LAST_SLOT = 930;
-    // 每个时段的长度：30 分钟一个时段
+    // Length of one time slot: 30 minutes
     private static final int SLOT_LENGTH = 30;
 
     private Patient patient;
@@ -21,11 +23,12 @@ public class Appointment implements Comparable<Appointment> {
     private int timeMinutes;
 
     /**
-     * 创建一次预约，并校验预约时间是否落在合法时段内。
+     * Creates an appointment and validates that the appointment time falls on a legal slot.
      *
-     * @param patient 患者对象，不能为 null
-     * @param professional 被预约的医疗专业人员，可以是任何子类，不能为 null
-     * @param timeMinutes 预约时间，用分钟数表示（510 = 08:30），必须在 08:00-15:30 之间且是 30 的倍数，否则改用默认时间 08:00
+     * @param patient the patient; must not be null
+     * @param professional the booked health professional; may be any subclass and must not be null
+     * @param timeMinutes the appointment time in minutes (510 = 08:30); it must be between 08:00
+     *        and 15:30 and be a multiple of 30, otherwise the default time 08:00 is used
      */
     public Appointment(Patient patient, HealthProfessional professional, int timeMinutes) {
         this.patient = patient;
@@ -39,10 +42,12 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     /**
-     * 按预约时间比较两个预约，返回值小于 0 表示本预约更早。
+     * Compares two appointments by their appointment time; a return value less than 0 means this
+     * appointment is earlier.
      *
-     * @param other 要比较的另一个预约
-     * @return 两个预约时间之差（分钟数）：小于 0 表示本预约更早，等于 0 表示同一时间，大于 0 表示本预约更晚
+     * @param other the other appointment to compare with
+     * @return the difference in minutes between the two appointment times: less than 0 means this
+     *         appointment is earlier, 0 means the same time, greater than 0 means it is later
      */
     @Override
     public int compareTo(Appointment other) {
@@ -50,46 +55,48 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     /**
-     * 返回该预约的患者。
+     * Returns the patient of this appointment.
      *
-     * @return 患者对象
+     * @return the patient object
      */
     public Patient getPatient() {
         return patient;
     }
 
     /**
-     * 返回该预约被预约的医疗专业人员。
+     * Returns the health professional booked for this appointment.
      *
-     * @return 医疗专业人员对象（可能是任意子类）
+     * @return the health professional object, possibly any subclass
      */
     public HealthProfessional getProfessional() {
         return professional;
     }
 
     /**
-     * 返回该预约的时间（从午夜起的分钟数）。
+     * Returns the appointment time as minutes since midnight.
      *
-     * @return 预约时间的分钟数，例如 510 表示 08:30
+     * @return the appointment time in minutes, e.g. 510 means 08:30
      */
     public int getTimeMinutes() {
         return timeMinutes;
     }
 
     /**
-     * 返回该预约时间的显示格式 "HH:MM"。
+     * Returns the appointment time formatted for display, e.g. "9:30".
      *
-     * @return 形如 "8:30" 的时间字符串
+     * @return the time string in the form "8:30"
      */
     public String getTimeString() {
         return formatTime(timeMinutes);
     }
 
     /**
-     * 把分钟数格式化成 "HH:MM" 显示，例如 510 -> "8:30"，485 -> "8:05"。
+     * Formats a moment given in minutes since midnight as "HH:MM", e.g. 510 -> "8:30" and
+     * 485 -> "8:05".
      *
-     * @param minutes 从午夜起的分钟数
-     * @return 形如 "8:30" 的时间字符串，分钟数不足 10 时补 0
+     * @param minutes minutes since midnight
+     * @return a time string such as "8:30"; the minute part is padded with a leading zero when it
+     *         is less than 10
      */
     private String formatTime(int minutes) {
         int hours = minutes / 60;
@@ -101,9 +108,10 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     /**
-     * 返回预约的可读描述，包含时间、患者和专业人员的完整信息。
+     * Returns a readable description of this appointment, including the full information of the
+     * time, the patient and the professional.
      *
-     * @return 形如 "Appointment [Time: 8:30, Patient: ..., Professional: ...]" 的描述字符串
+     * @return a description string such as "Appointment [Time: 8:30, Patient: ..., Professional: ...]"
      */
     @Override
     public String toString() {

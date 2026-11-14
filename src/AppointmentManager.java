@@ -2,9 +2,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * 表示预约管理器，保存诊所的所有预约，并负责添加预约、避免同一位医生在同一时间被重复预约。
+ * Manages the clinic's appointments: keeps all appointments and is responsible for adding them,
+ * making sure that the same professional is never booked at the same time twice.
  *
- * @author 童可盈
+ * @author Tong Keying
  * @version 14/11/2026
  */
 public class AppointmentManager {
@@ -12,17 +13,19 @@ public class AppointmentManager {
     private ArrayList<Appointment> appointments;
 
     /**
-     * 创建预约管理器，初始化一个空的预约列表。
+     * Creates an appointment manager with an empty appointment list.
      */
     public AppointmentManager() {
         appointments = new ArrayList<>();
     }
 
     /**
-     * 添加一次预约；如果预约为 null，或同一位医生在同一时间已有预约，则拒绝添加并返回提示消息。
+     * Adds an appointment. If the appointment is null, or the same professional is already booked
+     * at the same time, the appointment is rejected and a warning message is returned.
      *
-     * @param appointment 要添加的预约
-     * @return 成功时返回 "Appointment added: ..."，失败时返回 "Cannot add appointment: ..." 的说明消息
+     * @param appointment the appointment to add
+     * @return "Appointment added: ..." on success, or "Cannot add appointment: ..." when the
+     *         appointment is rejected
      */
     public String addAppointment(Appointment appointment) {
         if (appointment == null) {
@@ -44,7 +47,7 @@ public class AppointmentManager {
     }
 
     /**
-     * 打印全部预约，按预约时间从早到晚排序。
+     * Prints all appointments, sorted by appointment time from earliest to latest.
      */
     public void displayAll() {
         Collections.sort(appointments);
@@ -55,9 +58,10 @@ public class AppointmentManager {
     }
 
     /**
-     * 按专业人员编号筛选并打印预约，结果同样按预约时间排序。
+     * Prints the appointments of one professional, selected by the professional's id; the result is
+     * sorted by appointment time as well.
      *
-     * @param id 专业人员的编号
+     * @param id the professional's id
      */
     public void displayFilteredByProfessional(String id) {
         ArrayList<Appointment> found = new ArrayList<>();
@@ -78,9 +82,10 @@ public class AppointmentManager {
     }
 
     /**
-     * 按患者手机号筛选并打印预约，结果同样按预约时间排序。
+     * Prints the appointments of one patient, selected by the patient's mobile number; the result
+     * is sorted by appointment time as well.
      *
-     * @param mobile 患者的手机号
+     * @param mobile the patient's mobile number
      */
     public void displayFilteredByMobile(String mobile) {
         ArrayList<Appointment> found = new ArrayList<>();
@@ -101,11 +106,13 @@ public class AppointmentManager {
     }
 
     /**
-     * 按专业人员编号和预约时间取消预约，找到符合的预约就删除并返回成功消息。
+     * Cancels the appointment of one professional at a given time: the matching appointment is
+     * removed and a success message is returned.
      *
-     * @param id 专业人员的编号
-     * @param timeMinutes 预约时间（分钟数）
-     * @return 取消成功时返回 "Appointment cancelled: ..."；找不到时返回 "Cannot cancel: ..." 的说明消息
+     * @param id the professional's id
+     * @param timeMinutes the appointment time in minutes
+     * @return "Appointment cancelled: ..." when an appointment was removed, or "Cannot cancel: ..."
+     *         when no appointment matches
      */
     public String cancelByProfessional(String id, int timeMinutes) {
         for (int i = 0; i < appointments.size(); i++) {
@@ -121,10 +128,12 @@ public class AppointmentManager {
     }
 
     /**
-     * 按患者手机号取消预约，找到第一条符合条件的预约就删除并返回成功消息。
+     * Cancels an appointment by the patient's mobile number: the first matching appointment is
+     * removed and a success message is returned.
      *
-     * @param mobile 患者的手机号
-     * @return 取消成功时返回 "Appointment cancelled: ..."；找不到时返回 "Cannot cancel: ..." 的说明消息
+     * @param mobile the patient's mobile number
+     * @return "Appointment cancelled: ..." when an appointment was removed, or "Cannot cancel: ..."
+     *         when no appointment matches
      */
     public String cancelByMobile(String mobile) {
         for (int i = 0; i < appointments.size(); i++) {

@@ -1,22 +1,26 @@
 import java.util.ArrayList;
 
 /**
- * 护士,继承医疗专业人员基类,额外记录所属科室,并能给病人抽血。
+ * A nurse, extending the health professional base class. Besides the shared information it keeps
+ * the department the nurse belongs to and can take blood samples from patients.
  *
- * @author 童可盈
- * @version 13/11/2026
+ * @author Tong Keying
+ * @version 14/11/2026
  */
 public class Nurse extends HealthProfessional {
 
     private String department;
 
     /**
-     * 创建护士对象,编号、姓名和工作日传给父类,自己额外保存所属科室。
+     * Creates a nurse object: the id, name and working days are passed to the parent class, and the
+     * department is stored by this class.
      *
-     * @param id 编号,必须全部由数字组成
-     * @param name 姓名,不能为空
-     * @param workingDays 每周工作日列表,为 null 或空时使用默认工作日
-     * @param department 所属科室,为空时默认 "Unknown"
+     * @param id the professional's id, which must consist of digits only
+     * @param name the professional's name, which must not be empty
+     * @param workingDays the weekly working days; the default working days are used when it is
+     *        null or empty
+     * @param department the department the nurse belongs to; it is set to "Unknown" when null or
+     *        empty
      */
     public Nurse(String id, String name,
             ArrayList<String> workingDays, String department) {
@@ -29,9 +33,9 @@ public class Nurse extends HealthProfessional {
     }
 
     /**
-     * 返回自己的类型名称。
+     * Returns the type name of this professional.
      *
-     * @return 字符串 "Nurse"
+     * @return the string "Nurse"
      */
     @Override
     public String getRole() {
@@ -39,9 +43,9 @@ public class Nurse extends HealthProfessional {
     }
 
     /**
-     * 给病人抽血,打印一条抽血记录。
+     * Takes a blood sample from a patient and prints a blood sample record.
      *
-     * @param patientName 病人的姓名
+     * @param patientName the patient's name
      */
     public void takeBloodSample(String patientName) {
         System.out.println("Nurse " + getName()
@@ -49,12 +53,13 @@ public class Nurse extends HealthProfessional {
     }
 
     /**
-     * 返回护士的可读描述:先取父类的共享信息,再追加自己的科室。
+     * Returns a readable description of this nurse: the shared information from the parent class
+     * followed by this nurse's department.
      *
-     * @return 包含类型、编号、姓名、工作日和科室的描述字符串
+     * @return a description string containing the type, id, name, working days and department
      */
     @Override
     public String toString() {
         return super.toString() + " | Department: " + department;
     }
-} 
+}

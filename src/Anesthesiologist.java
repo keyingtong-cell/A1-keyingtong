@@ -1,22 +1,27 @@
 import java.util.ArrayList;
 
 /**
- * 麻醉科医生,继承医疗专业人员基类,额外记录常用麻醉方式,并能给病人实施麻醉。
+ * An anesthesiologist, extending the health professional base class. Besides the shared
+ * information it stores the commonly used anesthesia type and can administer anesthesia to
+ * patients.
  *
- * @author 童可盈
- * @version 13/11/2026
+ * @author Tong Keying
+ * @version 14/11/2026
  */
 public class Anesthesiologist extends HealthProfessional {
 
     private String anesthesiaType;
 
     /**
-     * 创建麻醉科医生对象,编号、姓名和工作日传给父类,自己额外保存常用麻醉方式。
+     * Creates an anesthesiologist object: the id, name and working days are passed to the parent
+     * class, and the commonly used anesthesia type is stored by this class.
      *
-     * @param id 编号,必须全部由数字组成
-     * @param name 姓名,不能为空
-     * @param workingDays 每周工作日列表,为 null 或空时使用默认工作日
-     * @param anesthesiaType 常用麻醉方式,如 "全身麻醉",为空时默认 "Unknown"
+     * @param id the professional's id, which must consist of digits only
+     * @param name the professional's name, which must not be empty
+     * @param workingDays the weekly working days; the default working days are used when it is
+     *        null or empty
+     * @param anesthesiaType the commonly used anesthesia type, e.g. "General Anesthesia"; it is
+     *        set to "Unknown" when null or empty
      */
     public Anesthesiologist(String id, String name,
             ArrayList<String> workingDays, String anesthesiaType) {
@@ -29,9 +34,9 @@ public class Anesthesiologist extends HealthProfessional {
     }
 
     /**
-     * 返回自己的类型名称。
+     * Returns the type name of this professional.
      *
-     * @return 字符串 "Anesthesiologist"
+     * @return the string "Anesthesiologist"
      */
     @Override
     public String getRole() {
@@ -39,9 +44,9 @@ public class Anesthesiologist extends HealthProfessional {
     }
 
     /**
-     * 给病人实施麻醉,打印一条麻醉记录。
+     * Administers anesthesia to a patient and prints an anesthesia record.
      *
-     * @param patientName 病人的姓名
+     * @param patientName the patient's name
      */
     public void administerAnesthesia(String patientName) {
         System.out.println("Anesthesiologist " + getName()
@@ -49,12 +54,13 @@ public class Anesthesiologist extends HealthProfessional {
     }
 
     /**
-     * 返回麻醉科医生的可读描述:先取父类的共享信息,再追加自己的常用麻醉方式。
+     * Returns a readable description of this anesthesiologist: the shared information from the
+     * parent class followed by this doctor's commonly used anesthesia type.
      *
-     * @return 包含类型、编号、姓名、工作日和麻醉方式的描述字符串
+     * @return a description string containing the type, id, name, working days and anesthesia type
      */
     @Override
     public String toString() {
         return super.toString() + " | Anesthesia: " + anesthesiaType;
     }
-} 
+}

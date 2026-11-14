@@ -1,22 +1,27 @@
 import java.util.ArrayList;
 
 /**
- * 儿科医生,继承医疗专业人员基类,额外记录负责的儿童年龄段,并能给儿童接种疫苗。
+ * A pediatrician, extending the health professional base class. Besides the shared information it
+ * keeps the age range of the children it is responsible for, can give vaccinations and can
+ * prescribe drugs.
  *
- * @author 童可盈
- * @version 13/11/2026
+ * @author Tong Keying
+ * @version 14/11/2026
  */
 public class Pediatrician extends HealthProfessional implements CanPrescribe {
 
     private String ageRange;
 
     /**
-     * 创建儿科医生对象,编号、姓名和工作日传给父类,自己额外保存负责的儿童年龄段。
+     * Creates a pediatrician object: the id, name and working days are passed to the parent class,
+     * and the age range is stored by this class.
      *
-     * @param id 编号,必须全部由数字组成
-     * @param name 姓名,不能为空
-     * @param workingDays 每周工作日列表,为 null 或空时使用默认工作日
-     * @param ageRange 负责的儿童年龄段,如 "0-14 岁",为空时默认 "Unknown"
+     * @param id the professional's id, which must consist of digits only
+     * @param name the professional's name, which must not be empty
+     * @param workingDays the weekly working days; the default working days are used when it is
+     *        null or empty
+     * @param ageRange the age range of the children this doctor is responsible for, e.g.
+     *        "0-14 years"; it is set to "Unknown" when null or empty
      */
     public Pediatrician(String id, String name,
             ArrayList<String> workingDays, String ageRange) {
@@ -29,9 +34,9 @@ public class Pediatrician extends HealthProfessional implements CanPrescribe {
     }
 
     /**
-     * 返回自己的类型名称。
+     * Returns the type name of this professional.
      *
-     * @return 字符串 "Pediatrician"
+     * @return the string "Pediatrician"
      */
     @Override
     public String getRole() {
@@ -39,9 +44,9 @@ public class Pediatrician extends HealthProfessional implements CanPrescribe {
     }
 
     /**
-     * 给儿童接种疫苗,打印一条接种记录。
+     * Gives a vaccination to a child and prints a vaccination record.
      *
-     * @param vaccineName 疫苗名称
+     * @param vaccineName the name of the vaccine
      */
     public void giveVaccination(String vaccineName) {
         System.out.println("Pediatrician " + getName()
@@ -49,9 +54,9 @@ public class Pediatrician extends HealthProfessional implements CanPrescribe {
     }
 
     /**
-     * 给儿童开药,打印一条开药记录。
+     * Prescribes a medicine to a child and prints a prescription record.
      *
-     * @param medicine 药品名称
+     * @param medicine the name of the medicine
      */
     @Override
     public void prescribeDrugs(String medicine) {
@@ -60,9 +65,10 @@ public class Pediatrician extends HealthProfessional implements CanPrescribe {
     }
 
     /**
-     * 返回儿科医生的可读描述:先取父类的共享信息,再追加自己负责的年龄段。
+     * Returns a readable description of this pediatrician: the shared information from the parent
+     * class followed by this doctor's age range.
      *
-     * @return 包含类型、编号、姓名、工作日和年龄段的描述字符串
+     * @return a description string containing the type, id, name, working days and age range
      */
     @Override
     public String toString() {
